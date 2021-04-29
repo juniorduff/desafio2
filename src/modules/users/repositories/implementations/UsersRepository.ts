@@ -20,7 +20,6 @@ class UsersRepository implements IUsersRepository {
 
   create({ name, email }: ICreateUserDTO): User {
     // CRIO NOVO USUARIO
-    const CreatedAt = new Date();
 
     const user = new User();
     // ATRIBUO A ESTE OBJETO
@@ -28,6 +27,7 @@ class UsersRepository implements IUsersRepository {
       name,
       email,
       created_at: new Date(),
+      updated_at: new Date(),
     });
     this.users.push(user);
 
