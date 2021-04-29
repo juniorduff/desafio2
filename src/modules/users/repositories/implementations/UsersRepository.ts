@@ -1,5 +1,5 @@
 import { User } from "../../model/User";
-import { IUsersRepository, ICreateUserDTO } from "../IUsersRepository";
+import { ICreateUserDTO, IUsersRepository } from "../IUsersRepository";
 
 class UsersRepository implements IUsersRepository {
   private users: User[];
@@ -19,23 +19,42 @@ class UsersRepository implements IUsersRepository {
   }
 
   create({ name, email }: ICreateUserDTO): User {
-    // Complete aqui
+    // CRIO NOVO USUARIO
+    const CreatedAt = new Date();
+
+    const user = new User();
+    // ATRIBUO A ESTE OBJETO
+    Object.assign(user, {
+      name,
+      email,
+      created_at: new Date(),
+    });
+    this.users.push(user);
+
+    return user;
   }
 
   findById(id: string): User | undefined {
-    // Complete aqui
+    const user = this.users.find((user) => user.id === id);
+    return user; // Complete aqui
   }
 
   findByEmail(email: string): User | undefined {
-    // Complete aqui
+    const userbyemail = this.users.find((user) => user.email === email);
+    return userbyemail;
   }
 
   turnAdmin(receivedUser: User): User {
-    // Complete aqui
+    const userAdmin = this.users.find((user) => user.id === receivedUser.id);
+    Object.assign(userAdmin, {
+      admin: true,
+      updated_at: new Date(),
+    });
+    return userAdmin;
   }
 
   list(): User[] {
-    // Complete aqui
+    return this.users;
   }
 }
 
